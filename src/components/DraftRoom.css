@@ -1,0 +1,85 @@
+h3 {
+  margin: 0;
+}
+
+.choose-team {
+  width: 100%;
+}
+
+.bans {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.bans img {
+  width: 4vw;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+  margin: 8px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 50%;
+}
+
+.red-bans, .blue-bans {
+  display: flex;
+}
+
+.blue-bans {
+  margin-left: auto;
+}
+
+/* ----------------- */
+.bottom-container {
+  display: flex;
+  margin-top: 3vh;
+}
+
+/* Picks */
+.red-picks > div, .blue-picks > div {
+  position: relative;
+}
+
+.red-picks img, .blue-picks img {
+  width: 6.5vw;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+  margin: 8px;
+  background-color: white;
+  border: 1px solid black;
+}
+
+.picked-name {
+  position: absolute;
+  z-index: 1;
+  bottom: 9px;
+  left: 9px;
+  width: 6.4vw;
+  background-color: #555555;
+  color: white;
+  text-align: center;
+}
+
+
+/* Main table */
+.main-table {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  justify-items: center;
+  width: 50%;
+  height: 70vh;
+  margin: auto;
+  background-color: white;
+  overflow: auto;
+}
+
+.main-table div {
+  border: 1px solid black;
+  display: flex;
+  width: 100%;
+}
+
+.main-table img {
+  margin: auto;
+  width: 6.5vw;
+}
+
