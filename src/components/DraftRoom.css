@@ -96,3 +96,19 @@ h3 {
   opacity: .7;
 }
 
+.main-banned {
+  background-color: #333333;
+}
+
+.main-banned img {
+  filter: grayscale(100%);
+}
+
+.main-red-picked {
+  background-color: rgb(255,70,70);
+}
+
+.main-blue-picked {
+  background-color: rgb(52,199,255);
+}
+

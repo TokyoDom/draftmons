@@ -4,21 +4,24 @@ const Picks = props => {
   return (
     <div className={`${props.player}-picks`}>
       <div>
-        <img alt={`${props.player} pick1`} src="/images/OU/0151.png" />
-        <div className="picked-name">Mew</div>
+        <img alt={`${props.player} pick1`} src={`/images/${props.tier}/${props.picks[0].id}.png`} />
+        {props.picks[0].name !== '' ? <div className="picked-name">{props.picks[0].name}</div> : null}
       </div>
       <div>
-        <img alt={`${props.player} pick2`} src="/images/OU/0882.png" />
-        <div className="picked-name">Dracovish</div>
+        <img alt={`${props.player} pick1`} src={`/images/${props.tier}/${props.picks[1].id}.png`} />
+        {props.picks[1].name !== '' ? <div className="picked-name">{props.picks[1].name}</div> : null}
       </div>
       <div>
-        <img alt={`${props.player} pick3`} src="/images/OU/0000.png" />
+        <img alt={`${props.player} pick1`} src={`/images/${props.tier}/${props.picks[2].id}.png`} />
+        {props.picks[2].name !== '' ? <div className="picked-name">{props.picks[2].name}</div> : null}
       </div>
       <div>
-        <img alt={`${props.player} pick4`} src="/images/OU/0000.png" />
+        <img alt={`${props.player} pick1`} src={`/images/${props.tier}/${props.picks[3].id}.png`} />
+        {props.picks[3].name !== '' ? <div className="picked-name">{props.picks[3].name}</div> : null}
       </div>
       <div>
-        <img alt={`${props.player} pick5`} src="/images/OU/0000.png" />
+        <img alt={`${props.player} pick1`} src={`/images/${props.tier}/${props.picks[4].id}.png`} />
+        {props.picks[4].name !== '' ? <div className="picked-name">{props.picks[4].name}</div> : null}
       </div>
     </div>
   );

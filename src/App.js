@@ -10,7 +10,9 @@ function App() {
       <div className="App">
         <Switch>
           <Route exact path='/' component={CreateRoom}/>
-          <Route path='/room/:id' component={DraftRoom}/>
+          <Route path='/room/:id' render={props => (
+            <DraftRoom {...props}/>
+          )}/>
         </Switch>
       </div>
     </BrowserRouter>

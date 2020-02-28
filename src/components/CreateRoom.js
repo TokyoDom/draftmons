@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import firebase from "../firebase";
 import "firebase/firestore";
-import "firebase/auth";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 import { withRouter } from "react-router-dom";
-import { OU, UU } from '../tiers';
+import { OU, UU, PickBans } from "../tiers";
 import random from "random-string-generator";
 
 class CreateRoom extends Component {
@@ -16,25 +15,46 @@ class CreateRoom extends Component {
     this.setState({ tier });
   };
 
-  createRoom = e => {
+  createRoom = async e => {
     e.preventDefault();
 
+    //Check tier
     const tier = this.state.tier;
-    if(tier) {
+    if (tier) {
       let pokemon;
-      switch(tier) {
-        case 'OU':
+      switch (tier) {
+        case "OU":
           pokemon = OU;
           break;
-        case 'UU':
+        case "UU":
           pokemon = UU;
           break;
         default:
           break;
       }
 
-      console.log(pokemon);
-      this.props.history.push(`room/${this.state.tier}-${random(9)}`)
+      //Create firestore document
+      const roomID = `${this.state.tier}-${random(9)}`;
+      const db = firebase.firestore();
+      await db
+        .collection("rooms")
+        .doc(roomID)
+        .set({
+          roomID: roomID,
+          tier: tier,
+          turn: 0,
+          activeUser: "",
+          pickBans: PickBans,
+          pokemon: pokemon,
+          users: {
+            red: "",
+            blue: ""
+          },
+          dateCreated: firebase.firestore.Timestamp.now()
+        });
+
+      //Go to Room
+      this.props.history.push(`room/${roomID}`);
     }
   };
 
