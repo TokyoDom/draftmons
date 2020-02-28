@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import firebase from "../firebase";
 import "firebase/firestore";
-import { Form, FormGroup, Label, Input, Button } from "reactstrap";
+import { Jumbotron, Form, FormGroup, Label, Input, Button } from "reactstrap";
 import { withRouter } from "react-router-dom";
 import { OU, UU, PickBans } from "../tiers";
 import random from "random-string-generator";
+import './CreateRoom.css';
 
 class CreateRoom extends Component {
   state = {
@@ -60,6 +61,7 @@ class CreateRoom extends Component {
 
   render() {
     return (
+      <Jumbotron className='creation-menu'>
       <Form>
         <FormGroup tag="fieldset">
           <legend>Pick a Tier:</legend>
@@ -86,8 +88,9 @@ class CreateRoom extends Component {
             </Label>
           </FormGroup>
         </FormGroup>
-        <Button onClick={e => this.createRoom(e)}>Create Room</Button>
+        <Button color='success' onClick={e => this.createRoom(e)}>Create Room</Button>
       </Form>
+      </Jumbotron>
     );
   }
 }

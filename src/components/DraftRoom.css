@@ -32,7 +32,7 @@ h3 {
   display: flex;
 }
 
-.blue-bans {
+.red-bans {
   margin-left: auto;
 }
 
@@ -64,6 +64,7 @@ h3 {
   background-color: #555555;
   color: white;
   text-align: center;
+  font-size: 0.9vw;
 }
 
 
@@ -74,7 +75,6 @@ h3 {
   grid-template-rows: repeat(6, 1fr);
   justify-items: center;
   width: 40%;
-  height: 70vh;
   margin: auto;
   background-color: white;
   overflow: auto;
@@ -105,10 +105,22 @@ h3 {
 }
 
 .main-red-picked {
-  background-color: rgb(255,70,70);
+  background-color: rgb(255, 96, 96);
 }
 
 .main-blue-picked {
-  background-color: rgb(52,199,255);
+  background-color: rgb(118, 216, 255);
 }
 
+.currently-picking {
+  animation: glow 1s infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 10px -10px rgb(253, 255, 136);
+  }
+  to {
+    box-shadow: 0 0 10px 10px rgb(253, 255, 136);
+  }
+}
