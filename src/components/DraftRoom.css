@@ -2,8 +2,16 @@ h3 {
   margin: 0;
 }
 
-.choose-team {
+.side-select {
   width: 100%;
+}
+
+.side-select button {
+  width: 50%;
+}
+
+.team-picked {
+  visibility: hidden;
 }
 
 .bans {
@@ -16,7 +24,7 @@ h3 {
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
   margin: 8px;
   background-color: white;
-  border: 1px solid black;
+  border: 1px dashed black;
   border-radius: 50%;
 }
 
@@ -62,10 +70,10 @@ h3 {
 /* Main table */
 .main-table {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(6, 1fr);
   justify-items: center;
-  width: 50%;
+  width: 40%;
   height: 70vh;
   margin: auto;
   background-color: white;
@@ -80,6 +88,11 @@ h3 {
 
 .main-table img {
   margin: auto;
-  width: 6.5vw;
+  width: 5.25vw;
+}
+
+.main-table img:hover {
+  cursor: pointer;
+  opacity: .7;
 }
 

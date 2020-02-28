@@ -8,8 +8,8 @@ const Picks = props => {
         <div className="picked-name">Mew</div>
       </div>
       <div>
-        <img alt={`${props.player} pick2`} src="/images/OU/0598.png" />
-        <div className="picked-name">Ferrothorn</div>
+        <img alt={`${props.player} pick2`} src="/images/OU/0882.png" />
+        <div className="picked-name">Dracovish</div>
       </div>
       <div>
         <img alt={`${props.player} pick3`} src="/images/OU/0000.png" />
