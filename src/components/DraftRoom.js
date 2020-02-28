@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ButtonGroup, Button } from "reactstrap";
+import { ButtonGroup, Button, Spinner } from "reactstrap";
 import firebase from "../firebase";
 import "firebase/firestore";
 import "firebase/auth";
@@ -10,6 +10,7 @@ import "./DraftRoom.css";
 
 class DraftRoom extends Component {
   state = {
+    loading: false,
     roomID: null,
     tier: "",
     users: {},
@@ -17,6 +18,7 @@ class DraftRoom extends Component {
   };
 
   async componentDidMount() {
+    this.setState({ loading: true });
     const room = this.props.match.params.id;
     const db = firebase.firestore();
 
@@ -55,6 +57,8 @@ class DraftRoom extends Component {
       } = roomDetails[0];
       this.setState({ activeUser, roomID, tier, pickBans, pokemon, users });
     }
+
+    this.setState({ loading: false });
   }
 
   componentWillUnmount() {
@@ -92,12 +96,14 @@ class DraftRoom extends Component {
     }
 
     if (this.state.users.red !== "" && this.state.users.blue !== "") {
-      await room.update({ activeUser: this.state.users.blue });
-    }
+      const pickBans = this.state.pickBans;
+      pickBans[0].styles = "currently-picking";
 
-    const pickBans = this.state.pickBans;
-    pickBans[0].styles = 'currently-picking';
-    await room.update({ pickBans });
+      await room.update({
+        activeUser: this.state.users.blue,
+        pickBans: pickBans
+      });
+    }
   };
 
   handlePickBan = async poke => {
@@ -129,8 +135,8 @@ class DraftRoom extends Component {
               el.styles = null;
             }
 
-            if(i === this.state.turn + 1) {
-              el.styles = 'currently-picking'
+            if (i === this.state.turn + 1) {
+              el.styles = "currently-picking";
             }
             return el;
           });
@@ -180,7 +186,6 @@ class DraftRoom extends Component {
             turn: firebase.firestore.FieldValue.increment(1),
             activeUser: nextUser
           });
-
         }
       }
     }
@@ -190,83 +195,91 @@ class DraftRoom extends Component {
     const pickBans = this.state.pickBans;
     return (
       <div>
-        {this.state.roomID ? (
+        {this.state.loading ? <div><Spinner color="dark" className="spinner"/></div> : (
           <div>
-            <h3>Bans:</h3>
-            <section className="bans">
-              <Bans
-                player="blue"
-                tier={this.state.tier}
-                bans={[
-                  pickBans[0],
-                  pickBans[2],
-                  pickBans[4],
-                  pickBans[13],
-                  pickBans[15]
-                ]}
-              />
-              <Bans
-                player="red"
-                tier={this.state.tier}
-                bans={[
-                  pickBans[1],
-                  pickBans[3],
-                  pickBans[5],
-                  pickBans[12],
-                  pickBans[14]
-                ]}
-              />
-            </section>
-            <ButtonGroup className="side-select">
-              <Button
-                color="primary"
-                value="blue"
-                className={this.state.users.blue === "" ? null : "team-picked"}
-                onClick={e => this.handleSideSelect(e.target.value)}
-              >
-                Play as Blue Team
-              </Button>
-              <Button
-                color="danger"
-                value="red"
-                className={this.state.users.red === "" ? null : "team-picked"}
-                onClick={e => this.handleSideSelect(e.target.value)}
-              >
-                Play as Red Team
-              </Button>
-            </ButtonGroup>
-            <h3>Picks:</h3>
-            <section className="bottom-container">
-              <Picks
-                player="blue"
-                tier={this.state.tier}
-                picks={[
-                  pickBans[6],
-                  pickBans[9],
-                  pickBans[10],
-                  pickBans[17],
-                  pickBans[18]
-                ]}
-              />
-              <MainTable
-                pokemon={this.state.pokemon}
-                tier={this.state.tier}
-                handlePickBan={this.handlePickBan}
-              />
-              <Picks
-                player="red"
-                tier={this.state.tier}
-                picks={[
-                  pickBans[7],
-                  pickBans[8],
-                  pickBans[11],
-                  pickBans[16],
-                  pickBans[19]
-                ]}
-              />
-            </section>
+            {this.state.roomID ? (
+              <div>
+                <h3>Bans:</h3>
+                <section className="bans">
+                  <Bans
+                    player="blue"
+                    tier={this.state.tier}
+                    bans={[
+                      pickBans[0],
+                      pickBans[2],
+                      pickBans[4],
+                      pickBans[13],
+                      pickBans[15]
+                    ]}
+                  />
+                  <Bans
+                    player="red"
+                    tier={this.state.tier}
+                    bans={[
+                      pickBans[1],
+                      pickBans[3],
+                      pickBans[5],
+                      pickBans[12],
+                      pickBans[14]
+                    ]}
+                  />
+                </section>
+                <ButtonGroup className="side-select">
+                  <Button
+                    color="primary"
+                    value="blue"
+                    className={
+                      this.state.users.blue === "" ? null : "team-picked"
+                    }
+                    onClick={e => this.handleSideSelect(e.target.value)}
+                  >
+                    Play as Blue Team
+                  </Button>
+                  <Button
+                    color="danger"
+                    value="red"
+                    className={
+                      this.state.users.red === "" ? null : "team-picked"
+                    }
+                    onClick={e => this.handleSideSelect(e.target.value)}
+                  >
+                    Play as Red Team
+                  </Button>
+                </ButtonGroup>
+                <h3>Picks:</h3>
+                <section className="bottom-container">
+                  <Picks
+                    player="blue"
+                    tier={this.state.tier}
+                    picks={[
+                      pickBans[6],
+                      pickBans[9],
+                      pickBans[10],
+                      pickBans[17],
+                      pickBans[18]
+                    ]}
+                  />
+                  <MainTable
+                    pokemon={this.state.pokemon}
+                    tier={this.state.tier}
+                    handlePickBan={this.handlePickBan}
+                  />
+                  <Picks
+                    player="red"
+                    tier={this.state.tier}
+                    picks={[
+                      pickBans[7],
+                      pickBans[8],
+                      pickBans[11],
+                      pickBans[16],
+                      pickBans[19]
+                    ]}
+                  />
+                </section>
+              </div>
+            ) : null}
           </div>
-        ) : null}
+        )}
       </div>
     );
   }
