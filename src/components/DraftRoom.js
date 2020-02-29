@@ -84,14 +84,11 @@ class DraftRoom extends Component {
       .collection("rooms")
       .doc(this.state.roomID);
 
-    const doc = await room.get();
-    const users = doc.data().users;
-
-    if (team === "red" && users.red === "") {
+    if (team === "red" && this.state.users.red === "") {
       await room.update({ "users.red": id });
     }
 
-    if (team === "blue" && users.blue === "") {
+    if (team === "blue" && this.state.users.blue === "") {
       await room.update({ "users.blue": id });
     }
 
@@ -108,7 +105,12 @@ class DraftRoom extends Component {
 
   handlePickBan = async poke => {
     //Check if user can make update
-    if (firebase.auth().currentUser && this.state.turn < 20) {
+    if (
+      firebase.auth().currentUser &&
+      this.state.turn < 20 &&
+      this.state.users.red !== "" &&
+      this.state.users.blue !== ""
+    ) {
       //Get current and next user
       const activeUser =
         this.state.turnOrder[this.state.turn] === 0
@@ -195,7 +197,11 @@ class DraftRoom extends Component {
     const pickBans = this.state.pickBans;
     return (
       <div>
-        {this.state.loading ? <div><Spinner color="dark" className="spinner"/></div> : (
+        {this.state.loading ? (
+          <div>
+            <Spinner color="dark" className="spinner" />
+          </div>
+        ) : (
           <div>
             {this.state.roomID ? (
               <div>
