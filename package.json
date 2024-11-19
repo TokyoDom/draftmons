@@ -8,7 +8,7 @@
     "@testing-library/user-event": "^7.2.1",
     "bootstrap": "^4.4.1",
     "express": "^4.17.1",
-    "firebase": "^7.9.1",
+    "firebase": "^10.9.0",
     "random-string-generator": "^1.0.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
